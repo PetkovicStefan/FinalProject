@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SignInPage {
@@ -51,6 +52,29 @@ public class SignInPage {
 	
 	public void clickRegisterNow() {
 		this.getRegisterNow().click();
+	}
+	
+	public void signIn(String username, String password) {
+		this.setUserName(username);
+		this.setPassword(password);
+		this.clickLoginButton();
+	}
+	
+	public WebElement getSignOut() {
+		return this.driver.findElement(By.xpath(locators.getProperty("signOut")));
+	}
+	
+	public boolean signedIn() {
+		try {
+			this.getSignOut();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void signOut() {
+		this.getSignOut().click();
 	}
 	
 
