@@ -165,5 +165,31 @@ public class RegistrationPage {
 	public void clickSaveButton() {
 		this.getSaveButton().click();
 	}
+	
+	public void registerNewUser(String id, String password, String firstName, String lastName, String mail, String phone, String address1, String address2, String city, String state, String country, String zip) {
+		this.setId(id);
+		this.setNewPassword(password);
+		this.setRepeatPassword(password);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setEmail(mail);
+		this.setPhone(phone);
+		this.setAddress1(address1);
+		this.setAddress2(address2);
+		this.setCity(city);
+		this.setState(state);
+		this.setZip(zip);
+		this.setCountry(country);
+		this.clickSaveButton();
+	}
+	
+	public boolean isRegistered() {
+		try {
+			this.driver.findElement(By.xpath(locators.getProperty("signIn")));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 }

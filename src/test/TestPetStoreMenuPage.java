@@ -41,9 +41,9 @@ public class TestPetStoreMenuPage {
 	public void isUrlAdressWorking() {
 		PetStoreMenuPage menuPage = new PetStoreMenuPage(driver, locators, waiter);
 		SoftAssert sa = new SoftAssert();
-		sa.assertTrue(menuPage.urlLeftNavMenuWorks());
-		sa.assertTrue(menuPage.urlCenterNavMenuWorks());
-		sa.assertTrue(menuPage.urlImageNavMenuWorks());
+		sa.assertTrue(menuPage.urlMenuWorks(menuPage.getLeftNavMenu()));
+		sa.assertTrue(menuPage.urlMenuWorks(menuPage.getCenterNavMenu()));
+		sa.assertTrue(menuPage.urlMenuWorks(menuPage.getImageNavMenu()));
 		sa.assertAll();
 	}
 	

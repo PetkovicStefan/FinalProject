@@ -34,18 +34,25 @@ public class PetStoreMenuPage {
 	
 	public boolean isEnteredSignInPage() {
 		this.enterSignInPage();
-//		return waiter.until(ExpectedConditions.elementToBeClickable(By.xpath(locators.getProperty("loginButton")))).isDisplayed();
-		return this.driver.findElement(By.xpath(locators.getProperty("loginButton"))).isDisplayed();
+		return waiter.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locators.getProperty("loginButton")))).isDisplayed();
 	}
 	
 	public List<WebElement> getLeftNavMenu(){
 		return driver.findElements(By.xpath(locators.getProperty("leftNavMenu")));
 	}
 	
-	public boolean urlLeftNavMenuWorks() {
-		List<WebElement> leftNavMenu = this.getLeftNavMenu();
-		for(int i = 0; i < leftNavMenu.size(); i++) {
-			int status = this.verifyURLStatus(leftNavMenu.get(i).getAttribute("href"));
+	public List<WebElement> getCenterNavMenu(){
+		return driver.findElements(By.xpath(locators.getProperty("centerNavMenu")));
+	}
+	
+	public List<WebElement> getImageNavMenu(){
+		return driver.findElements(By.xpath(locators.getProperty("imageNavMenu")));
+	}
+	
+	public boolean urlMenuWorks(List<WebElement> navigationMenu) {
+		List<WebElement> navMenu = navigationMenu;
+		for(int i = 0; i < navMenu.size(); i++) {
+			int status = this.verifyURLStatus(navMenu.get(i).getAttribute("href"));
 			if(status > 400) {
 				return false;
 			}
@@ -54,12 +61,12 @@ public class PetStoreMenuPage {
 	}
 	
 	public boolean leftNavMenuCorrectPage() {
-		List<WebElement> leftNavMenu = this.getLeftNavMenu();
+		List<WebElement> navMenu = this.getLeftNavMenu();
 		boolean correctPage = true;
-		for(int i = 0; i < leftNavMenu.size(); i++) {
-			
-			String href = leftNavMenu.get(i).getAttribute("href");
-			leftNavMenu.get(i).click();
+		for(int i = 0; i < navMenu.size(); i++) {
+	
+			String href = navMenu.get(i).getAttribute("href");
+			navMenu.get(i).click();
 			String petName = this.driver.findElement(By.xpath(locators.getProperty("petCategory"))).getText();
 			petName = petName.toUpperCase();
 			if(!href.contains(petName)) {
@@ -67,33 +74,18 @@ public class PetStoreMenuPage {
 				break;
 			}
 			this.driver.navigate().back();
-			leftNavMenu = this.getLeftNavMenu();
+			navMenu = this.getLeftNavMenu();
 		}
 		return correctPage;
-	}
-	
-	public List<WebElement> getCenterNavMenu(){
-		return driver.findElements(By.xpath(locators.getProperty("centerNavMenu")));
-	}
-	
-	public boolean urlCenterNavMenuWorks() {
-		List<WebElement> centerNavMenu = this.getCenterNavMenu();
-		for(int i = 0; i < centerNavMenu.size(); i++) {
-			int status = this.verifyURLStatus(centerNavMenu.get(i).getAttribute("href"));
-			if(status > 400) {
-				return false;
-			}
-		}
-		return true;
 	}
 	
 	public boolean centerNavMenuCorrectPage() {
-		List<WebElement> centerNavMenu = this.getCenterNavMenu();
+		List<WebElement> navMenu = this.getCenterNavMenu();
 		boolean correctPage = true;
-		for(int i = 0; i < centerNavMenu.size(); i++) {
-			
-			String href = centerNavMenu.get(i).getAttribute("href");
-			centerNavMenu.get(i).click();
+		for(int i = 0; i < navMenu.size(); i++) {
+	
+			String href = navMenu.get(i).getAttribute("href");
+			navMenu.get(i).click();
 			String petName = this.driver.findElement(By.xpath(locators.getProperty("petCategory"))).getText();
 			petName = petName.toUpperCase();
 			if(!href.contains(petName)) {
@@ -101,33 +93,18 @@ public class PetStoreMenuPage {
 				break;
 			}
 			this.driver.navigate().back();
-			centerNavMenu = this.getCenterNavMenu();
+			navMenu = this.getCenterNavMenu();
 		}
 		return correctPage;
-	}
-	
-	public List<WebElement> getImageNavMenu(){
-		return driver.findElements(By.xpath(locators.getProperty("imageNavMenu")));
-	}
-	
-	public boolean urlImageNavMenuWorks() {
-		List<WebElement> imageNavMenu = this.getImageNavMenu();
-		for(int i = 0; i < imageNavMenu.size(); i++) {
-			int status = this.verifyURLStatus(imageNavMenu.get(i).getAttribute("href"));
-			if(status > 400) {
-				return false;
-			}
-		}
-		return true;
 	}
 	
 	public boolean imageNavMenuCorrectPage() {
-		List<WebElement> imageNavMenu = this.getImageNavMenu();
+		List<WebElement> navMenu = this.getImageNavMenu();
 		boolean correctPage = true;
-		for(int i = 0; i < imageNavMenu.size(); i++) {
-			
-			String href = imageNavMenu.get(i).getAttribute("href");
-			imageNavMenu.get(i).click();
+		for(int i = 0; i < navMenu.size(); i++) {
+	
+			String href = navMenu.get(i).getAttribute("href");
+			navMenu.get(i).click();
 			String petName = this.driver.findElement(By.xpath(locators.getProperty("petCategory"))).getText();
 			petName = petName.toUpperCase();
 			if(!href.contains(petName)) {
@@ -135,11 +112,10 @@ public class PetStoreMenuPage {
 				break;
 			}
 			this.driver.navigate().back();
-			imageNavMenu = this.getImageNavMenu();
+			navMenu = this.getImageNavMenu();
 		}
 		return correctPage;
 	}
-	
 	public int verifyURLStatus(String urlString) {
 		int status = 404;
 		try {
