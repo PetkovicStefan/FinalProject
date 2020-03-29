@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="107923" started-at="2020-03-28T03:38:45 CET" finished-at="2020-03-28T03:40:32 CET">
+  <suite name="Default suite" duration-ms="27518" started-at="2020-03-29T04:05:39 CEST" finished-at="2020-03-29T04:06:07 CEST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="107923" started-at="2020-03-28T03:38:45 CET" finished-at="2020-03-28T03:40:32 CET">
-      <class name="test.TestSignInPage">
-        <test-method status="PASS" signature="setup()[pri:0, instance:test.TestSignInPage@3701eaf6]" name="setup" is-config="true" duration-ms="8502" started-at="2020-03-28T03:38:45 CET" finished-at="2020-03-28T03:38:53 CET">
+    <test name="Default test" duration-ms="27518" started-at="2020-03-29T04:05:39 CEST" finished-at="2020-03-29T04:06:07 CEST">
+      <class name="test.TestCartPage">
+        <test-method status="PASS" signature="setup()[pri:0, instance:test.TestCartPage@3701eaf6]" name="setup" is-config="true" duration-ms="6750" started-at="2020-03-29T04:05:39 CEST" finished-at="2020-03-29T04:05:46 CEST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="isSignedIn()[pri:0, instance:test.TestSignInPage@3701eaf6]" name="isSignedIn" duration-ms="98999" started-at="2020-03-28T03:38:53 CET" finished-at="2020-03-28T03:40:32 CET">
+        <test-method status="PASS" signature="isCookiesWorks()[pri:0, instance:test.TestCartPage@3701eaf6]" name="isCookiesWorks" duration-ms="11060" started-at="2020-03-29T04:05:46 CEST" finished-at="2020-03-29T04:05:57 CEST">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- isSignedIn -->
-        <test-method status="PASS" signature="afterClass()[pri:0, instance:test.TestSignInPage@3701eaf6]" name="afterClass" is-config="true" duration-ms="304" started-at="2020-03-28T03:40:32 CET" finished-at="2020-03-28T03:40:32 CET">
+        </test-method> <!-- isCookiesWorks -->
+        <test-method status="PASS" signature="isItemsAddedToCart()[pri:0, instance:test.TestCartPage@3701eaf6]" name="isItemsAddedToCart" duration-ms="9313" started-at="2020-03-29T04:05:57 CEST" finished-at="2020-03-29T04:06:06 CEST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- isItemsAddedToCart -->
+        <test-method status="PASS" signature="afterClass()[pri:0, instance:test.TestCartPage@3701eaf6]" name="afterClass" is-config="true" duration-ms="290" started-at="2020-03-29T04:06:06 CEST" finished-at="2020-03-29T04:06:07 CEST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterClass -->
-      </class> <!-- test.TestSignInPage -->
+      </class> <!-- test.TestCartPage -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
