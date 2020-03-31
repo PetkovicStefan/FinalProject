@@ -29,6 +29,7 @@ public class SignInPage {
 		user.clear();
 		user.sendKeys(username);
 	}
+	
 	public WebElement getPassword() {
 		return this.driver.findElement(By.xpath(locators.getProperty("password")));
 	}
@@ -64,7 +65,7 @@ public class SignInPage {
 		return this.driver.findElement(By.xpath(locators.getProperty("signOut")));
 	}
 	
-	public boolean signedIn() {
+	public boolean isSignedIn() {
 		try {
 			this.getSignOut();
 			return true;

@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -36,10 +38,10 @@ public class TestCartPage {
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		this.waiter = new WebDriverWait(driver, 30);
-		
+		this.driver.navigate().to(locators.getProperty("cartUrl"));
 	}
 	
-	@Test
+	@Test (priority = 1)
 	public void isItemsAddedToCart() {
 		StoreItemPage itemPage = new StoreItemPage(driver, locators, waiter);
 		CartPage cart = new CartPage(driver, locators, waiter);
@@ -50,32 +52,23 @@ public class TestCartPage {
 		for(int i = 1; i <  ExcelUtils.getRowNumber(); i++) {
 			String itemId = ExcelUtils.getDataAt(i, 0);
 			String itemUrl = ExcelUtils.getDataAt(i, 1);
-			
 			this.driver.navigate().to(itemUrl);
 			itemPage.clickAddToCart();
-			
-			sa.assertTrue(cart.itemAddedToCart(itemId));
+			sa.assertTrue(cart.isItemAddedToCart(itemId));
 		}
 		sa.assertAll();
 	}
 	
-	@Test
-	public void isCookiesWorks() throws InterruptedException {
-		StoreItemPage itemPage = new StoreItemPage(driver, locators, waiter);
+	@Test (priority = 2)
+	public void isCartSumValid() {
 		CartPage cart = new CartPage(driver, locators, waiter);
-		SoftAssert sa = new SoftAssert();
-		
-		ExcelUtils.setExcell("data/pet-store-data.xlsx");
-		ExcelUtils.setWorkSheet(0);
-		for(int i = 1; i <  ExcelUtils.getRowNumber(); i++) {
-			String itemId = ExcelUtils.getDataAt(i, 0);
-			String itemUrl = ExcelUtils.getDataAt(i, 1);
-			
-			this.driver.navigate().to(itemUrl);
-			itemPage.clickAddToCart();
-		}
+		Assert.assertTrue(cart.isPricesEquals());
+	}
+	
+	@Test (priority = 3)
+	public void isCookiesWorks() {
 		this.driver.navigate().to(locators.getProperty("cartUrl"));
-		Thread.sleep(2000);
+		CartPage cart = new CartPage(driver, locators, waiter);
 		cart.deleteAllCookies();
 		this.driver.navigate().refresh();
 		Assert.assertTrue(cart.isCartEmpty());
@@ -83,6 +76,7 @@ public class TestCartPage {
 	
 	@AfterClass
 	public void afterClass() {
+		ExcelUtils.closeExcell();
 		this.driver.close();
 	}
 }

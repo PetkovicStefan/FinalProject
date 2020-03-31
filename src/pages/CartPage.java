@@ -1,5 +1,8 @@
 package pages;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Properties;
 
@@ -20,12 +23,47 @@ public class CartPage {
 		this.waiter = waiter;
 	} 
 	
-	public List<WebElement> itemsId() {
+	public List<WebElement> getItemsId() {
 		return this.driver.findElements(By.xpath(locators.getProperty("itemIdList")));
 	}
+	
+	public WebElement getTotalSumElement() {
+		return this.driver.findElement(By.xpath(locators.getProperty("sumTotal")));
+	}
+	
+	public double getTotalSum() {
+		String subTotal = this.getTotalSumElement().getText().substring(12);
+		return Double.parseDouble(subTotal);
+	}
+	
+	public List<WebElement> getAllItemsTotalPrice() {
+		try {
+			return this.driver.findElements(By.xpath(locators.getProperty("itemsTotalPrice")));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public double getTotalItemsPrice() {
+		List<WebElement> allItemsPrice = this.getAllItemsTotalPrice();
+		double sum = 0;
+		if(allItemsPrice != null) {
+			for(int i = 0; i < allItemsPrice.size(); i++) {
+				String itemPrice = allItemsPrice.get(i).getText().substring(1, 5);
+				double price = Double.parseDouble(itemPrice);
+				sum += price;
+			}
+		}
+		BigDecimal bd = new BigDecimal(sum).setScale(2, RoundingMode.HALF_UP);
+		return bd.doubleValue();
+	}
+	
+	public boolean isPricesEquals() {
+		return this.getTotalSum() == this.getTotalItemsPrice();
+	}
 
-	public boolean itemAddedToCart(String id) {
-		List<WebElement> itemsId = this.itemsId();
+	public boolean isItemAddedToCart(String id) {
+		List<WebElement> itemsId = this.getItemsId();
 		for(int i = 0; i < itemsId.size(); i++) {
 			String itemId = itemsId.get(i).getText();
 			if (itemId.contentEquals(id)) {
@@ -47,6 +85,8 @@ public class CartPage {
 			return false;
 		}
 	}
+	
+	
 	
 	
 }

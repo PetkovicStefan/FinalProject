@@ -1,11 +1,17 @@
 package pages;
 
+import java.io.IOException;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.spi.SelectorProvider;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegistrationPage {
@@ -158,6 +164,24 @@ public class RegistrationPage {
 		country.sendKeys(newCountry);
 	}
 	
+	public WebElement getSelectLanguage() {
+		return this.driver.findElement(By.xpath(locators.getProperty("selectLanguage")));
+	}
+	
+	public void selectLanguage(String languages) {
+		Select s = new Select(this.getSelectLanguage());
+		s.selectByVisibleText(languages);
+	}
+	
+	public WebElement getSelectCategory() {
+		return this.driver.findElement(By.xpath(locators.getProperty("selectCategory")));
+	}
+	
+	public void selectCategory(String category) {
+		Select s = new Select(this.getSelectCategory());
+		s.selectByVisibleText(category);
+	}
+	
 	public WebElement getSaveButton() {
 		return this.driver.findElement(By.xpath(locators.getProperty("saveAccountButton")));
 	}
@@ -166,7 +190,8 @@ public class RegistrationPage {
 		this.getSaveButton().click();
 	}
 	
-	public void registerNewUser(String id, String password, String firstName, String lastName, String mail, String phone, String address1, String address2, String city, String state, String country, String zip) {
+	public void registerNewUser(String id, String password, String firstName, String lastName, String mail, String phone, 
+			String address1, String address2, String city, String state, String country, String zip, String languages, String category) {
 		this.setId(id);
 		this.setNewPassword(password);
 		this.setRepeatPassword(password);
@@ -180,6 +205,8 @@ public class RegistrationPage {
 		this.setState(state);
 		this.setZip(zip);
 		this.setCountry(country);
+		this.selectLanguage(languages);
+		this.selectCategory(category);
 		this.clickSaveButton();
 	}
 	

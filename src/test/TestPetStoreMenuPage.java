@@ -34,20 +34,19 @@ public class TestPetStoreMenuPage {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		this.waiter = new WebDriverWait(driver, 30);
 		this.driver.navigate().to(this.locators.getProperty("urlMenuPetStore"));
-		
 	}
 	
-	@Test
+	@Test (priority = 1)
 	public void isUrlAdressWorking() {
 		PetStoreMenuPage menuPage = new PetStoreMenuPage(driver, locators, waiter);
 		SoftAssert sa = new SoftAssert();
-		sa.assertTrue(menuPage.urlMenuWorks(menuPage.getLeftNavMenu()));
-		sa.assertTrue(menuPage.urlMenuWorks(menuPage.getCenterNavMenu()));
-		sa.assertTrue(menuPage.urlMenuWorks(menuPage.getImageNavMenu()));
+		sa.assertTrue(menuPage.isUrlMenuWorks(menuPage.getLeftNavMenu()));
+		sa.assertTrue(menuPage.isUrlMenuWorks(menuPage.getCenterNavMenu()));
+		sa.assertTrue(menuPage.isUrlMenuWorks(menuPage.getImageNavMenu()));
 		sa.assertAll();
 	}
 	
-	@Test
+	@Test (priority = 2)
 	public void isLoadedPageCorrect() {
 		PetStoreMenuPage menuPage = new PetStoreMenuPage(driver, locators, waiter);
 		SoftAssert sa = new SoftAssert();
@@ -57,9 +56,10 @@ public class TestPetStoreMenuPage {
 		sa.assertAll();
 	}
 	
-	@Test
+	@Test (priority = 3)
 	public void isSignInButtonWorks() {
 		PetStoreMenuPage menuPage = new PetStoreMenuPage(driver, locators, waiter);
+		menuPage.enterSignInPage();
 		Assert.assertTrue(menuPage.isEnteredSignInPage());
 	}
 	

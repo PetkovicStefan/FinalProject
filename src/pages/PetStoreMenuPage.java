@@ -33,8 +33,13 @@ public class PetStoreMenuPage {
 	}
 	
 	public boolean isEnteredSignInPage() {
-		this.enterSignInPage();
-		return waiter.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locators.getProperty("loginButton")))).isDisplayed();
+		try {
+			this.driver.findElement(By.xpath(locators.getProperty("loginButton")));
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 	
 	public List<WebElement> getLeftNavMenu(){
@@ -49,11 +54,11 @@ public class PetStoreMenuPage {
 		return driver.findElements(By.xpath(locators.getProperty("imageNavMenu")));
 	}
 	
-	public boolean urlMenuWorks(List<WebElement> navigationMenu) {
+	public boolean isUrlMenuWorks(List<WebElement> navigationMenu) {
 		List<WebElement> navMenu = navigationMenu;
 		for(int i = 0; i < navMenu.size(); i++) {
 			int status = this.verifyURLStatus(navMenu.get(i).getAttribute("href"));
-			if(status > 400) {
+			if(status >= 400) {
 				return false;
 			}
 		}
@@ -64,7 +69,6 @@ public class PetStoreMenuPage {
 		List<WebElement> navMenu = this.getLeftNavMenu();
 		boolean correctPage = true;
 		for(int i = 0; i < navMenu.size(); i++) {
-	
 			String href = navMenu.get(i).getAttribute("href");
 			navMenu.get(i).click();
 			String petName = this.driver.findElement(By.xpath(locators.getProperty("petCategory"))).getText();

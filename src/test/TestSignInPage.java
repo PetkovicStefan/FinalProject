@@ -34,34 +34,28 @@ public class TestSignInPage {
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		this.waiter = new WebDriverWait(driver, 30);
-		this.driver.navigate().to(this.locators.getProperty("urlMenuPetStore"));
 	}
 	
 	@Test
 	public void isSignedIn() {
-		PetStoreMenuPage menuPage = new PetStoreMenuPage(driver, locators, waiter);
-		menuPage.enterSignInPage();
-		
 		SignInPage signInPage = new SignInPage(driver, locators, waiter);
-		
 		SoftAssert sa = new SoftAssert();
 		ExcelUtils.setExcell("data/pet-store-data.xlsx");
 		ExcelUtils.setWorkSheet(1);
-		
 		for(int i = 1; i < ExcelUtils.getRowNumber(); i++) {
 			String username = ExcelUtils.getDataAt(i, 0);
 			String password = ExcelUtils.getDataAt(i, 1);
-			
+			this.driver.navigate().to(locators.getProperty("urlSignInPage"));
 			signInPage.signIn(username, password);
-			sa.assertTrue(signInPage.signedIn());
+			sa.assertTrue(signInPage.isSignedIn());
 			signInPage.signOut();
-			menuPage.enterSignInPage();
 		}
 		sa.assertAll();
 	}
 	
 	@AfterClass
 	public void afterClass() {
+		ExcelUtils.closeExcell();
 		this.driver.close();
 	}
 }

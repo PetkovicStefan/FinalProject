@@ -8,7 +8,6 @@
           <include name="afterClass"/>
           <include name="setup"/>
           <include name="isCookiesWorks"/>
-          <include name="isItemsAddedToCart"/>
         </methods>
       </class> <!-- test.TestCartPage -->
     </classes>
