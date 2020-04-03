@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
-  <test thread-count="5" name="Default test(failed)">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [https://petstore.octoperf.com/]">
+  <test thread-count="5" name="FirefoxTest(failed)">
+    <parameter name="browser" value="Firefox"/>
     <classes>
-      <class name="test.TestCartPage">
+      <class name="tests.TestPetStoreMenuPage">
         <methods>
+          <include name="isLoadedPageCorrect"/>
           <include name="afterClass"/>
           <include name="setup"/>
-          <include name="isCookiesWorks"/>
         </methods>
-      </class> <!-- test.TestCartPage -->
+      </class> <!-- tests.TestPetStoreMenuPage -->
     </classes>
-  </test> <!-- Default test(failed) -->
-</suite> <!-- Failed suite [Default suite] -->
+  </test> <!-- FirefoxTest(failed) -->
+  <test thread-count="5" name="EdgeTest(failed)">
+    <parameter name="browser" value="Edge"/>
+    <classes>
+      <class name="tests.TestRegistrationPage">
+        <methods>
+          <include name="isRegister"/>
+          <include name="afterClass"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- tests.TestRegistrationPage -->
+      <class name="tests.TestSignInPage">
+        <methods>
+          <include name="isSignedIn"/>
+          <include name="afterClass"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- tests.TestSignInPage -->
+    </classes>
+  </test> <!-- EdgeTest(failed) -->
+</suite> <!-- Failed suite [https://petstore.octoperf.com/] -->
