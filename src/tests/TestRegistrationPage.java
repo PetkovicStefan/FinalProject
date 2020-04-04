@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
@@ -44,7 +45,7 @@ public class TestRegistrationPage {
 		}
 		else if(browser.equalsIgnoreCase("edge")) {
 			System.setProperty("webdriver.edge.driver", "driver-lib\\msedgedriver.exe");
-			this.driver = new ChromeDriver();
+			this.driver = new EdgeDriver();
 		}
 		else {
 			throw new Exception("Browser is not correct");

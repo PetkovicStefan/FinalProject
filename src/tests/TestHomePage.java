@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.GeckoDriverService;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,7 +40,7 @@ public class TestHomePage {
 		}
 		else if(browser.equalsIgnoreCase("edge")) {
 			System.setProperty("webdriver.edge.driver", "driver-lib\\msedgedriver.exe");
-			this.driver = new ChromeDriver();
+			this.driver = new EdgeDriver();
 		}
 		else {
 			throw new Exception("Browser is not correct");

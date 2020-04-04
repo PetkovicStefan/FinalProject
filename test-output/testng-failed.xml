@@ -13,23 +13,4 @@
       </class> <!-- tests.TestPetStoreMenuPage -->
     </classes>
   </test> <!-- FirefoxTest(failed) -->
-  <test thread-count="5" name="EdgeTest(failed)">
-    <parameter name="browser" value="Edge"/>
-    <classes>
-      <class name="tests.TestRegistrationPage">
-        <methods>
-          <include name="isRegister"/>
-          <include name="afterClass"/>
-          <include name="setup"/>
-        </methods>
-      </class> <!-- tests.TestRegistrationPage -->
-      <class name="tests.TestSignInPage">
-        <methods>
-          <include name="isSignedIn"/>
-          <include name="afterClass"/>
-          <include name="setup"/>
-        </methods>
-      </class> <!-- tests.TestSignInPage -->
-    </classes>
-  </test> <!-- EdgeTest(failed) -->
 </suite> <!-- Failed suite [https://petstore.octoperf.com/] -->
