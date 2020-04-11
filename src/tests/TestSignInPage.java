@@ -57,7 +57,7 @@ public class TestSignInPage {
 	public void isSignedIn() {
 		SignInPage signInPage = new SignInPage(driver, locators, waiter);
 		SoftAssert sa = new SoftAssert();
-		ExcelUtils.setExcell("data/pet-store-data.xlsx");
+		ExcelUtils.setExcell(locators.getProperty("petStoreExcelFile"));
 		ExcelUtils.setWorkSheet(1);
 		for(int i = 1; i < ExcelUtils.getRowNumber(); i++) {
 			String username = ExcelUtils.getDataAt(i, 0);

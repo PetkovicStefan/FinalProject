@@ -56,14 +56,14 @@ public class TestRegistrationPage {
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		this.waiter = new WebDriverWait(driver, 30);
-		this.driver.navigate().to(this.locators.getProperty("urlRegistrationPage"));
 	}
 	
 	@Test
 	public void isRegister() {
+		this.driver.navigate().to(this.locators.getProperty("urlRegistrationPage"));
 		RegistrationPage regPage = new RegistrationPage(driver, locators, waiter);
 		SoftAssert sa = new SoftAssert();
-		ExcelUtils.setExcell("data/pet-store-data.xlsx");
+		ExcelUtils.setExcell(locators.getProperty("petStoreExcelFile"));
 		ExcelUtils.setWorkSheet(1);
 		ExcelUtils.setUniqueId();
 		ExcelUtils.setLanguagePreference();

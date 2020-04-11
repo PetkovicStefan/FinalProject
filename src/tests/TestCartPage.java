@@ -55,16 +55,16 @@ public class TestCartPage {
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		this.waiter = new WebDriverWait(driver, 30);
-		this.driver.navigate().to(locators.getProperty("cartUrl"));
 	}
 	
 	@Test (priority = 1)
 	public void isItemsAddedToCart() {
+		this.driver.navigate().to(locators.getProperty("cartUrl"));
 		StoreItemPage itemPage = new StoreItemPage(driver, locators, waiter);
 		CartPage cart = new CartPage(driver, locators, waiter);
 		SoftAssert sa = new SoftAssert();
 		
-		ExcelUtils.setExcell("data/pet-store-data.xlsx");
+		ExcelUtils.setExcell(locators.getProperty("petStoreExcelFile"));
 		ExcelUtils.setWorkSheet(0);
 		for(int i = 1; i <  ExcelUtils.getRowNumber(); i++) {
 			String itemId = ExcelUtils.getDataAt(i, 0);
@@ -77,19 +77,37 @@ public class TestCartPage {
 	}
 	
 	@Test (priority = 2)
-	public void isCartSumValid() {
+	public void isCookiesWorks() {
+		this.driver.navigate().to(locators.getProperty("cartUrl"));
+		StoreItemPage itemPage = new StoreItemPage(driver, locators, waiter);
 		CartPage cart = new CartPage(driver, locators, waiter);
+		ExcelUtils.setExcell(locators.getProperty("petStoreExcelFile"));
+		ExcelUtils.setWorkSheet(0);
+		for(int i = 1; i <  ExcelUtils.getRowNumber(); i++) {
+			String itemUrl = ExcelUtils.getDataAt(i, 1);
+			this.driver.navigate().to(itemUrl);
+			itemPage.clickAddToCart();
+		}
+		this.driver.manage().deleteAllCookies();
+		this.driver.navigate().to(locators.getProperty("cartUrl"));
+		Assert.assertTrue(cart.isCartEmpty());
+	}
+
+	@Test (priority = 3)
+	public void isCartSumValid() {
+		this.driver.navigate().to(locators.getProperty("cartUrl"));
+		StoreItemPage itemPage = new StoreItemPage(driver, locators, waiter);
+		CartPage cart = new CartPage(driver, locators, waiter);
+		ExcelUtils.setExcell(locators.getProperty("petStoreExcelFile"));
+		ExcelUtils.setWorkSheet(0);
+		for(int i = 1; i <  ExcelUtils.getRowNumber(); i++) {
+			String itemUrl = ExcelUtils.getDataAt(i, 1);
+			this.driver.navigate().to(itemUrl);
+			itemPage.clickAddToCart();
+		}
 		Assert.assertTrue(cart.isPricesEquals());
 	}
 	
-	@Test (priority = 3)
-	public void isCookiesWorks() {
-		this.driver.navigate().to(locators.getProperty("cartUrl"));
-		CartPage cart = new CartPage(driver, locators, waiter);
-		cart.deleteAllCookies();
-		this.driver.navigate().refresh();
-		Assert.assertTrue(cart.isCartEmpty());
-	}
 	
 	@AfterClass
 	public void afterClass() {

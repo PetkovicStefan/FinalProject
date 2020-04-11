@@ -73,10 +73,6 @@ public class CartPage {
 		return false;
 	}
 	
-	public void deleteAllCookies() {
-		this.driver.manage().deleteAllCookies();
-	}
-	
 	public boolean isCartEmpty() {
 		try {
 			this.driver.findElement(By.xpath(locators.getProperty("emptyCart")));
